@@ -1,0 +1,992 @@
+<!--Enthaelt die HTML-Elemente fuer die HTML-Seite sowie den Shader Code der:
+	* Position-FS
+	* Velocity-FS
+	* Lifetime-FS-->
+<!--******************************************************* BEGIN HTML Elemente ************************************************* -->
+<html>
+	<head>
+		<META NAME="Description" CONTENT="A Particlesystem using Web GL and Three.js">
+		<meta charset="utf-8" />
+		<title>GPU-Particlesystems</title>
+	</head>
+	<link rel="icon" type="image/png" href="favicon.png" />
+	<link rel="stylesheet" type="text/css" href="css/psCss.css">
+	<link rel="stylesheet" type="text/css" href="css/apprise.css" />
+	<body class="background">
+			<div name ="webGLDiv" id="mainDiv" >
+			</div>
+			
+			<div id="dvLoading" style="display:none" ><p>Loading... Please wait <br> This can take some time...</p></div>
+			
+			
+			<div name="htmlMainDiv" class="mainHtmlGuiDiv" id="div_HtmlGUI"  align="center">
+					<div class="blackBox"></div>
+					
+					<h1>GPU-Particleeffects with WebGL</h1>
+					
+					<p class="welcome">Welcome!</p>
+					<p class="introduction">This is a demonstration page for the application which I have developed for my master-thesis. <br>
+					The developed application is a particlesystem which uses WebGL for rendering the particles and calculating the particle attributes.</p>
+					
+					<p class="introduction">This page is divided into three sections:</p>
+					<ul>
+					<li class="myLi">The first section (GPU-Demos) contains demo settings, which demonstrate what is possible with the developed application.</li>
+					<li class="myLi">The second section (GPU-Performance-Tests) is for performance testing. Each test will run for 30 seconds and will show you the achieved points during this time. All calculations will be done on the GPU.</li>
+					<li class="myLi">The third section (CPU-Performance-Tests) is also for performance testing. The rendering is done using WebGL but the calculations of the particle attributes will be done on the CPU. Therefore it is possible to compare the performance of the CPU- and the GPU-version.</li>
+					</ul>
+					<p class="introduction">If the application can not be started, you can watch a video on <a target="_blank" href="http://www.youtube.com/watch?v=abh9Rj2HnC4&feature=youtu.be">YouTube</a>.</p>
+					<p class="introduction">Contact:   <img  class="email" src="./img/emailimg.png"alt="email"></p>	
+					
+					<hr class="myHrLine"/>
+					<p class="introduction"><b>Usage</b></p>
+					<p class="introduction">With the GUI you can interact with the particlesystems. Use the wind or local forces to move the particles. Emitters and their paramters can also be manipulated. Have fun :)</p>
+					<p class="introduction">You can control the camera with the following keys:</p>
+						<ul>
+						<li class="myLi">WASD-Keys: Moves the camera</li>
+						<li class="myLi">QR-Keys: Rotates the camera</li>
+						<li class="myLi">Mouse + Leftclick: Look at a direction</li>
+						</ul>
+						<br>
+						
+					<hr class="myHrLine"/>
+
+					<div class="setOfEntries">
+						<h2>GPU-Demos</h2>
+						<p class="introduction">These demos will run on slower machines like notebooks. All of these demos are using 32.000 particles. </p>
+							<div class="entrySettings">
+								<img  name="startingImage-demo01_GPU" src="./img/demo1HtmlImage.png"alt="Demo1">
+								<p class="pInEntry"><b>Demo-1</b><br>A ball-fountain throwing balls into the air.</p>
+							</div>
+							
+							<div class="entrySettings">
+								<img name="startingImage-demo02_GPU" src="./img/demo2HtmlImage.png" alt="Demo1">
+								<p class="pInEntry"><b>Demo-2</b><br>Red particles under the influence of two local forces.<p>
+							</div >
+							<div class="entrySettings">
+								<img name="startingImage-demo03_GPU"  src="./img/demo3HtmlImage.png" alt="Demo1">
+								<p class="pInEntry"><b>Demo-3</b><br>Snow and Balls thrown on the ground. </p>
+							</div>
+							<div class="entrySettings">
+								<img name="startingImage-demo04_GPU" src="./img/demo4HtmlImage.png" alt="Demo1">
+								<p class="pInEntry"><b>Demo-4</b><br>Fire under the influence of wind.</p>
+							</div>
+							<div class="entrySettings">
+								<img name="startingImage-demo05_GPU"  src="./img/demo5HtmlImage.png" alt="Demo1">
+								<p class="pInEntry"><b>Demo-5</b><br>Sparks thrown on a local force.</p> 
+							</div>
+							<div class="entrySettings">
+								<img name="startingImage-demo06_GPU" src="./img/demo6HtmlImage.png" alt="Demo1">
+								<p class="pInEntry"><b>Demo-6</b><br>Fire thrown on a local force.</p>
+							</div>							
+						
+							<br style="clear: both;">
+							<p class="introduction">The following demos will use much more particles so a more powerful machine is  required. </p>
+							<div class="entrySettings">
+								<img  name="startingImage-demo07_GPU" src="./img/demo7HtmlImage.png"alt="Demo1">
+								<p class="pInEntry"><b>Demo-7</b><br>Snow,fire and black smoke. <br> Circa 700.000 particles.</p>
+							</div>
+							
+							<div class="entrySettings">
+								<img name="startingImage-demo08_GPU" src="./img/demo8HtmlImage.png" alt="Demo1">
+								<p class="pInEntry"><b>Demo-8</b><br>Snow and fire attracted by two local forces.<br>Circa 300.000 particles<p>
+							</div >
+							<div class="entrySettings">
+								<img name="startingImage-demo09_GPU"  src="./img/demo9HtmlImage.png" alt="Demo1">
+								<p class="pInEntry"><b>Demo-9</b><br>White smoke under the influence of wind. <br>Circa 400.000 particles</p>
+							</div>
+							<div class="entrySettings">
+								<img name="startingImage-demo10_GPU" src="./img/demo10HtmlImage.png" alt="Demo1">
+								<p class="pInEntry"><b>Demo-10</b><br>Sparks and Snow under the influence of heavy wind.<br> A half million particles are used.</p>
+							</div>
+							<div class="entrySettings">
+								<img name="startingImage-demo11_GPU"  src="./img/demo11HtmlImage.png" alt="Demo1">
+								<p class="pInEntry"><b>Demo-11</b><br>Fog moved by wind.<br>Circa 32.000 particles</p> 
+							</div>
+							<div class="entrySettings">
+								<img name="askstartingImage-demo12_GPU" src="./img/demo12HtmlImage.png" alt="Demo1">
+								<p class="pInEntry"><b>Demo-12</b><br>Sandbox-mode. All Particlesystems enabled.<br>Circa 1 million particles </p>
+							</div>							
+					</div>
+					
+					<br style="clear: both;">
+					<div class="setOfEntries">
+						<h2>GPU-Performance-Tests</h2>
+						<div class="entrySettings">
+							<img  name="startingImage-test_snow1_GPU" src="./img/snowHtmlImage.png"alt="Demo1">
+							<p><b>Snow-1</b><br>Circa 32.000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_snow2_GPU" src="./img/snowHtmlImage.png" alt="Demo1">
+							<p><b>Snow-2</b><br>Circa 130.000 particles</p>
+						</div >
+						<div class="entrySettings">
+							<img name="startingImage-test_snow3_GPU"  src="./img/snowHtmlImage.png" alt="Demo1">
+							<p><b>Snow-3</b><br>Circa 300.000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_snow4_GPU" src="./img/snowHtmlImage.png" alt="Demo1">
+							<p><b>Snow-4</b><br>Circa 500.000 particles</p>
+						</div>						
+						<div class="entrySettings">
+						<img name="askstartingImage-test_snow5_GPU"  src="./img/snowHtmlImage.png" alt="Demo1">
+						<p><b>Snow-5</b><br>Circa 1.3 million particles <br> Note: Initialising can take up to 2 minutes!</p>
+						</div>
+						<div class="entrySettings">
+							<img name="askstartingImage-test_snow6_GPU" src="./img/snowHtmlImage.png" alt="Demo1">
+							<p><b>Snow-6</b><br>Circa 2 million particles <br> Note: Initialising can take up to 2 minutes <br> or more !</p>
+						</div>	
+						
+						
+						<br style="clear: both;">
+						<div class="entrySettings">
+							<img  name="startingImage-test_fire1_GPU" src="./img/fireHtmlImage.png"alt="Demo1">
+							<p><b>Fire-1</b><br>Circa 32.000 particles</p>
+						</div>
+						
+						<div class="entrySettings">
+							<img name="startingImage-test_fire2_GPU" src="./img/fireHtmlImage.png" alt="Demo1">
+							<p><b>Fire-2</b><br>Circa 130.000 particles</p>
+						</div >
+						<div class="entrySettings">
+							<img name="startingImage-test_fire3_GPU"  src="./img/fireHtmlImage.png" alt="Demo1">
+							<p><b>Fire-3</b><br>Circa 300.000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_fire4_GPU" src="./img/fireHtmlImage.png" alt="Demo1">
+							<p><b>Fire-4</b><br>Circa 500.000 particles</p>
+						</div>						
+						<div class="entrySettings">
+							<img name="askstartingImage-test_fire5_GPU"  src="./img/fireHtmlImage.png" alt="Demo1">
+							<p><b>Fire-5</b><br>Circa 1.3 million particles <br> Note: Initialising can take up to 2 minutes!</p>
+						</div>
+						<div class="entrySettings">
+							<img name="askstartingImage-test_fire6_GPU" src="./img/fireHtmlImage.png" alt="Demo1">
+							<p><b>Fire-6</b><br>Circa 2 million particles <br> Note: Initialising can take up to 2 minutes <br> or more !</p>
+						</div>
+					
+						<br style="clear: both;">
+						<div class="entrySettings">
+							<img  name="startingImage-test_balls1_GPU" src="./img/ballsHtmlImage.png"alt="Demo1">
+							<p><b>Balls-1</b><br>Circa 32.000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_balls2_GPU" src="./img/ballsHtmlImage.png" alt="Demo1">
+							<p><b>Balls-2</b><br>Circa 130.000 particles</p>
+						</div >
+						<div class="entrySettings">
+							<img name="startingImage-test_balls3_GPU"  src="./img/ballsHtmlImage.png" alt="Demo1">
+							<p><b>Balls-3</b><br>Circa 300.000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_balls4_GPU" src="./img/ballsHtmlImage.png" alt="Demo1">
+							<p><b>Balls-4</b><br>Circa 500.000 particles</p>
+						</div>						
+						<div class="entrySettings">
+							<img name="askstartingImage-test_balls5_GPU"  src="./img/ballsHtmlImage.png" alt="Demo1">
+							<p><b>Balls-5</b><br>Circa 1.3 million particles <br> Note: Initialising can take up to 2 minutes!</p>
+						</div>
+						<div class="entrySettings">
+							<img name="askstartingImage-test_balls6_GPU" src="./img/ballsHtmlImage.png" alt="Demo1">
+							<p><b>Balls-6</b><br>Circa 2 million particles <br> Note: Initialising can take up to 2 minutes <br> or more !</p>
+						</div>		
+						
+						<br style="clear: both;">
+						<div class="entrySettings">
+							<img  name="startingImage-test_sparks1_GPU" src="./img/sparksHtmlImage.png"alt="Demo1">
+							<p><b>Sparks-1</b><br>Circa 32.000 particles</p>
+						</div>
+						
+						<div class="entrySettings">
+							<img name="startingImage-test_sparks2_GPU" src="./img/sparksHtmlImage.png" alt="Demo1">
+							<p><b>Sparks-2</b><br>Circa 130.000 particles</p>
+						</div >
+						<div class="entrySettings">
+							<img name="startingImage-test_sparks3_GPU"  src="./img/sparksHtmlImage.png" alt="Demo1">
+							<p><b>Sparks-3</b><br>Circa 300.000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_sparks4_GPU" src="./img/sparksHtmlImage.png" alt="Demo1">
+							<p><b>Sparks-4</b><br>Circa 500.000 particles</p>
+						</div>						
+						<div class="entrySettings">
+							<img name="askstartingImage-test_sparks5_GPU"  src="./img/sparksHtmlImage.png" alt="Demo1">
+							<p><b>Sparks-5</b><br>Circa 1.3 million particles <br> Note: Initialising can take up to 2 minutes!</p>
+						</div>
+						<div class="entrySettings">
+							<img name="askstartingImage-test_sparks6_GPU" src="./img/sparksHtmlImage.png" alt="Demo1">
+							<p><b>Sparks-6</b><br>Circa 2 million particles <br> Note: Initialising can take up to 2 minutes <br> or more !</p>
+						</div>
+						
+						<br style="clear: both;">
+						<div class="entrySettings">
+							<img  name="startingImage-test_whitesmoke1_GPU" src="./img/whiteSmokeHtmlImage.png"alt="Demo1">
+							<p><b>White-Smoke-1</b><br>Circa 32.000 particles</p>
+						</div>
+						
+						<div class="entrySettings">
+							<img name="startingImage-test_whitesmoke2_GPU" src="./img/whiteSmokeHtmlImage.png" alt="Demo1">
+							<p><b>White-Smoke-2</b><br>Circa 130.000 particles</p>
+						</div >
+						<div class="entrySettings">
+							<img name="startingImage-test_whitesmoke3_GPU"  src="./img/whiteSmokeHtmlImage.png" alt="Demo1">
+							<p><b>White-Smoke-3</b><br>Circa 300.000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_whitesmoke4_GPU" src="./img/whiteSmokeHtmlImage.png" alt="Demo1">
+							<p><b>White-Smoke-4</b><br>Circa 500.000 particles</p>
+						</div>						
+						<div class="entrySettings">
+							<img name="askstartingImage-test_whitesmoke5_GPU"  src="./img/whiteSmokeHtmlImage.png" alt="Demo1">
+							<p><b>White-Smoke-5</b><br>Circa 1.3 million particles <br> Note: Initialising can take up to 2 minutes!</p>
+						</div>
+						<div class="entrySettings">
+							<img name="askstartingImage-test_whitesmoke6_GPU" src="./img/whiteSmokeHtmlImage.png" alt="Demo1">
+							<p><b>White-Smoke-6</b><br>Circa 2 million particles <br> Note: Initialising can take up to 2 minutes <br> or more !</p>
+						</div>	
+						
+						
+
+						<br style="clear: both;">
+						<div class="entrySettings">
+							<img  name="startingImage-test_points1_GPU" src="./img/pointsHtmlImage.png"alt="Demo1">
+							<p><b>Red-Points-1</b><br>Circa 32.000 particles</p>
+						</div>
+						
+						<div class="entrySettings">
+							<img name="startingImage-test_points2_GPU" src="./img/pointsHtmlImage.png" alt="Demo1">
+							<p><b>Red-Points-2</b><br>Circa 130.000 particles</p>
+						</div >
+						<div class="entrySettings">
+							<img name="startingImage-test_points3_GPU"  src="./img/pointsHtmlImage.png" alt="Demo1">
+							<p><b>Red-Points-3</b><br>Circa 300.000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_points4_GPU" src="./img/pointsHtmlImage.png" alt="Demo1">
+							<p><b>Red-Points-4</b><br>Circa 500.000 particles</p>
+						</div>						
+						<div class="entrySettings">
+							<img name="askstartingImage-test_points5_GPU"  src="./img/pointsHtmlImage.png" alt="Demo1">
+							<p><b>Red-Points-5</b><br>Circa 1.3 million particles <br> Note: Initialising can take up to 2 minutes!</p>
+						</div>
+						<div class="entrySettings">
+							<img name="askstartingImage-test_points6_GPU" src="./img/pointsHtmlImage.png" alt="Demo1">
+							<p><b>Red-Points-6</b><br>Circa 2 million particles <br> Note: Initialising can take up to 2 minutes <br> or more !</p>
+						</div>							
+						
+				</div>	
+					
+					<br style="clear: both;">
+					<div class="setOfEntries">
+						<h2>CPU-Performance-Tests</h2>
+						<div class="entrySettings">
+							<img  name="startingImage-test_snow1_CPU" src="./img/snowHtmlImage.png"alt="Demo1">
+							<p><b>Snow-1</b><br>Circa 2000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_snow2_CPU" src="./img/snowHtmlImage.png" alt="Demo1">
+							<p><b>Snow-2</b><br>Circa 8000 particles</p>
+						</div >
+						<div class="entrySettings">
+							<img name="startingImage-test_snow3_CPU"  src="./img/snowHtmlImage.png" alt="Demo1">
+							<p><b>Snow-3</b><br>Circa 32.000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_fire1_CPU" src="./img/fireHtmlImage.png" alt="Demo1">
+							<p><b>Fire-1</b><br>Circa 2000 particles</p>
+						</div>						
+						<div class="entrySettings">
+						<img name="startingImage-test_fire2_CPU"  src="./img/fireHtmlImage.png" alt="Demo1">
+						<p><b>Fire-2</b><br>Circa 8000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_fire3_CPU" src="./img/fireHtmlImage.png" alt="Demo1">
+							<p><b>Fire-3</b><br>Circa 32.000 particles</p>
+						</div>	
+						
+						<br style="clear: both;">
+						<div class="setOfEntries">
+						<div class="entrySettings">
+							<img  name="startingImage-test_balls1_CPU" src="./img/ballsHtmlImage.png"alt="Demo1">
+							<p><b>Ball-1</b><br>Circa 2000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_balls2_CPU" src="./img/ballsHtmlImage.png" alt="Demo1">
+							<p><b>Ball-2</b><br>Circa 8000 particles</p>
+						</div >
+						<div class="entrySettings">
+							<img name="startingImage-test_balls3_CPU"  src="./img/ballsHtmlImage.png" alt="Demo1">
+							<p><b>Ball-3</b><br>Circa 32.000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_sparks1_CPU" src="./img/sparksHtmlImage.png" alt="Demo1">
+							<p><b>Sparks-1</b><br>Circa 2000 particles</p>
+						</div>						
+						<div class="entrySettings">
+						<img name="startingImage-test_sparks2_CPU"  src="./img/sparksHtmlImage.png" alt="Demo1">
+						<p><b>Sparks-2</b><br>Circa 8000 particles</p>
+						</div>
+						<div class="entrySettings">
+							<img name="startingImage-test_sparks3_CPU" src="./img/sparksHtmlImage.png" alt="Demo1">
+							<p><b>Sparks-3</b><br>Circa 32.000 particles</p>
+						</div>							
+				</div>	
+				
+				<br style="clear: both;">
+				<div class="setOfEntries">
+					<h2>References</h2>
+					<div>
+						<ul>
+							<li class="myLi"><a href="https://github.com/mrdoob/three.js/">Three.js</a></li>
+							<li class="myLi"><a href="http://93i.de/cms/products/graphics/skybox-texture-set-1/">Skybox Images</a></li>
+						</ul>
+					</div>						
+			</div>					
+			<hr class="myHrLine"/>
+			<p><a href="./impressum.html">Impressum</a></p>
+				</div>
+			
+	</body>
+	<!--******************************************************* ENDE HTML Elemente ************************************************* -->	
+      <script  type="x-shader/x-vertex" id="vertexShader">
+		  varying vec2 vUv;
+
+		  void main() {
+		    vUv = uv;
+		    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+		  }
+	      </script>	
+     
+ <script  type="x-shader/x-fragment" id="copyFragmentShader">
+		  varying vec2 vUv;
+		  uniform sampler2D tDiffuse;
+		  
+		  void main(void) {
+		    gl_FragColor = texture2D( tDiffuse, vUv );
+		  }
+      </script>
+    
+
+     <!--******************************************************* BEGIN SHADER PS ************************************************* -->
+    <!--shader zum aktualisieren der positionen -->
+    <script  type="x-shader/x-fragment" id="fragment_pos">
+		#ifdef GL_ES
+		precision highp float;
+		#endif
+		varying vec2 vUv;
+		uniform sampler2D tPos;
+		uniform sampler2D tVel;
+		uniform sampler2D tLifeMass;
+		uniform sampler2D tRandom;
+		uniform float r;
+		uniform float deltaT;
+		uniform int isVolume;
+		uniform float volumeHeight;
+		uniform vec3 emitterPos;
+		uniform float baseEmitterSize;
+		uniform int typePS;
+		uniform int visualizationType;  
+		
+		
+		/* Berechnet den geschwindigkeitsvektor. fuehrt, abheangig von dem zustand des partikels, eine der drei operationen durch:
+		 * 1) Partikel ist tot und soll nicht wiedergeboren werden. Partikel erhaelt konstanten positionssvektor, an dem erkannt werden kann das es ein totes partikel ist
+		 * 2) Partikel hat den unter 1 beschriebenen konstanten vektor, jedoch ist die lifetime groesser als 0. es wird eine neue startgposition berechnet.
+		 * 		Die Bestimmung 
+		 * 3) Partikel ist aktiv (hat lifetime groesser 0 und nicht den konstanten vektor) Es wird der positionskeitsvektor aktualisiert. 
+		 * 		Dabei wird der dritte integrationsschriff durchgefuhert.
+		 */
+		vec3 handlePos1(vec3 posOld, vec4 otherRandom,vec3 vel, vec3 lifeVec){
+			float life = lifeVec.r;
+			float startLife = lifeVec.b;
+			if(life <= 0.0){//1)
+				vec3 posDead_constant = vec3(999.0,999.0,999.0); 
+				return posDead_constant;
+			}else if(posOld.x == 999.0 && posOld.y == 999.0 && posOld.z == 999.0 && life > 0.0){//2)
+				float random_r = otherRandom.r;
+				float random_g = otherRandom.g;
+				float random_b = otherRandom.b;
+				vec3 birthPos = vec3(emitterPos);
+				
+//				//snow. loesung fuer probleme das zuviele rts auf schwanchen pcs zu lange dauern.
+//				//snow wird zufaellg auch auf der y achse erstellt
+				if(isVolume == 1){// ist ein emitter welcher ein volumen verwendet
+					birthPos.x += baseEmitterSize * random_r;
+					birthPos.y -= volumeHeight * random_b;// hier keine addition zur emitter pos sondern multiplikation  					posNew.y = emitterPos.y * random_b;
+					birthPos.z += baseEmitterSize * random_g;	
+				}else{// flaechenemitter
+					birthPos.x += baseEmitterSize * random_r;
+					//birthPos.y += 1.0;// nur da um zu zeigen das hier auch noch der y wert veraendert werden koennte
+					birthPos.z += baseEmitterSize * random_g;
+				}
+				
+				return birthPos; 
+			}else if (life > 0.0){
+				vec3 updatedPos = posOld + vel*deltaT; // dritter integrationschritt
+				return updatedPos; 
+			}
+		}
+		
+		void main(void) {
+			vec3 posOld = texture2D(tPos, vUv).rgb;
+			vec3 life = texture2D(tLifeMass, vUv).rgb;
+			float newU = vUv.x + r;
+			float newV = vUv.y + r;
+			vec2 newVuV = vec2(newU, newV);
+			vec4 otherRandom = texture2D(tRandom,newVuV).rgba;
+			vec3 vel = texture2D(tVel, vUv).rgb;
+			
+			vec3 newPos = handlePos1(posOld, otherRandom, vel, life);
+			gl_FragColor = vec4(newPos, 1.0);
+	 }
+      </script>	
+
+    <!--shader zum aktualisieren der Beschleunigungen -->
+    <script  type="x-shader/x-fragment" id="fragment_vel">
+	#ifdef GL_ES
+	precision highp float;
+	#endif	
+    	varying vec2 vUv;
+		uniform sampler2D tVel;
+		uniform sampler2D tPos;
+		uniform sampler2D tLifeMass;
+		uniform sampler2D tRandom;
+		uniform vec3 gravity;
+		uniform vec3 wind;
+		uniform vec3 startVel;
+		uniform vec3 localForcePositions[10];
+		uniform float localForceMasses[10];
+		uniform float localForceAttractionModes[10];
+		uniform float localForceMinDistance[10];
+		uniform float deltaT;
+		uniform float r;
+        uniform vec3 adjustStartVelocitieVector;
+		uniform int typePS;
+		uniform int gravityMode;
+		uniform int adjustStartVel;
+		uniform float frictionCoeff;
+		uniform float massOfParticle;
+		uniform float planeMass;
+		uniform vec3 planeNormal;
+		
+		/*
+		 * Berechnet die reibung die auf das partikel wirkt.
+		 */
+		vec3 calculateFriction(vec3 velocity, float coefficentOfFriction, float massOfP){
+			vec3 frictionForce = vec3(velocity)* deltaT * -coefficentOfFriction;
+			return frictionForce;
+		}
+		
+		//berechnet die kraft die durch die lokalen keafte auf das partikel wirkt. nach dem newtonschen gravitations gesetzt
+		vec3 calculateAttractiveForce(vec3 posOfParticle, float massOfP){
+			vec3 sumOfAttractionForces = vec3(0.0,0.0,0.0);
+			for(int i=0; i<10; i++){
+				float massOFAttractor = localForceMasses[i];
+				if(massOFAttractor == 0.0)continue;// wenn lokale kraft nicht aktiv, mit naechster lokalen kraft weiter
+				
+				float attractionMode = localForceAttractionModes[i];
+				vec3 posOfAttractor = localForcePositions[i];
+				vec3 direction = vec3(0.0,0.0,0.0);
+				if(attractionMode == 0.0){// hin zum attractor
+					direction =  posOfAttractor.xyz - posOfParticle.xyz;
+				}else if(attractionMode == 1.0){// weg vom attractor
+					direction =  posOfParticle.xyz - posOfAttractor.xyz;
+				}
+				
+				float distance = length(direction.xyz);
+				float minDistance = localForceMinDistance[i];
+				direction = normalize(direction.xyz);
+				
+				if(distance < minDistance){// dadurch einstellbar wie stark lokale kraft maximal wirkt
+					distance = minDistance;
+				}
+				
+				//berechnung des kraft vektors
+				float force = (massOfP * massOFAttractor) / (distance * distance);
+				vec3 attractionForceVector = direction * force;
+				sumOfAttractionForces = sumOfAttractionForces + attractionForceVector;
+			}
+			return sumOfAttractionForces;
+		}
+		
+		/*
+		 * Berechnet den geschwindigkeitsvektor. fuehrt, abheangig von dem zustand des partikels, eine der drei operationen durch:
+		 * 
+		 * 1) Partikel ist tot und soll nicht wiedergeboren werden. Partikel erhaelt konstanten geschwindigkeitsvektor, an dem erkannt werden kann das es ein totes partikel ist
+		 * 2) Partikel hat den unter 1 beschriebenen konstanten vektor, jedoch ist die lifetime groesser als 0. es wird eine neue startgeschwindigkeit berechnet
+		 * 3) Partikel ist aktiv (hat lifetime groesser 0 und nicht den konstanten vektor) Es wird der geschwindigkeitsvektor aktualisiert. 
+		 * 		Dabei werden die ersten zwei integrationschritte durchgefuehrt sowie die kollisionsbehandlung
+		 */
+		vec3 calcVelocity1(float life, vec3 velOld, vec3 posOfParticle, vec4 randomOfThiseParticle, vec4 otherRandom){
+			if(life <= 0.0){//1) partikel tot. setze konstante geschwindigkeit. dadurch kann der velocity-fs erkennen das partikel tot 
+				vec3 velDead_constant = vec3(999.0,999.0,999.0); 
+				return velDead_constant;
+			}else if (velOld.x == 999.0 && velOld.y == 999.0  && velOld.z == 999.0 && life > 0.0){//2) partikel wiedergeboren. erkennbar daran das life groeser als 0 ist
+				//bestimmung der geburts-start-geschwindigkeit
+				vec3 birthVel = vec3(startVel);
+				if(adjustStartVel == 1){// partikel sollen nicht alle die gleich start geschwindigleit bekommen. deshalb anpassung per zufallszahlen
+					float random_r = otherRandom.r;
+					float random_g = otherRandom.g;
+					float random_b = otherRandom.b;
+					birthVel.x += -adjustStartVelocitieVector.x + (2.0*adjustStartVelocitieVector.x * random_r);
+					birthVel.y += -adjustStartVelocitieVector.y + (2.0*adjustStartVelocitieVector.y * random_g);
+					birthVel.z += -adjustStartVelocitieVector.z + (2.0*adjustStartVelocitieVector.z * random_b);
+				}
+				
+				return birthVel;
+			}else{//3)
+				//begin kraftberechnung
+				vec3 attractionForce = calculateAttractiveForce(posOfParticle, massOfParticle); 
+				vec3 G = vec3(gravity);
+				if(gravityMode == 0){// inverse gravity
+					G.g *= -1.0;
+				}			    
+				//d alemertsches Prinzip: addiere alle force vektoren
+				vec3 force_added = wind.xyz + attractionForce.xyz;
+				//ende kraftberechnung
+				
+				//begin beschleunigung berechnung
+				vec3 acceleration = force_added * (1.0/massOfParticle);
+				acceleration += G;
+				//ende beschleunigung berechnung
+				
+				//begin geschwindigkeit update berechnung
+				vec3 updatedVelocity = velOld + acceleration*deltaT;
+				
+				//reibung anwenden. kann erst berechnet werden, wenn die komplette geschwindigkeit berechnet ist. deshalb ausnahme des dlamreches prinzip					
+				vec3 frictionForce = calculateFriction(updatedVelocity, frictionCoeff, massOfParticle);
+				updatedVelocity += frictionForce;
+				
+				vec3 possibleNewPos = posOfParticle + updatedVelocity *  deltaT;// position bestimmen die das partikel mit der neuen vel einnhemen wuerde
+				if(posOfParticle.y < 0.0 && possibleNewPos.y < 0.0){// wenn das p sich bei der neuen pos unter der ebene befinden wuerde 
+					updatedVelocity *= 0.0;//so setze die vel auf 0.
+				}else{
+					vec3 pNormal = vec3(planeNormal);
+					float distToEbene = dot(possibleNewPos, pNormal);// cos der gebildet wird von der normalen der ebene und der neuen pos des p
+					// einfache kollisions erkennung
+					if(distToEbene <= 0.0){// kollision mit ebene/plane wenn kleiner gleich null
+						vec3 newVelCopy =  updatedVelocity - (2.0 * pNormal * dot(pNormal, updatedVelocity)) ;// spiegeln an ebenen normale
+						newVelCopy *= massOfParticle/ planeMass;// umso mehr masse umso mehr prallt das partikel an der plane ab
+						
+						if(length(newVelCopy) < 1.0){// wen geschwindigkleit klein--> bewegung verhindern.
+						  newVelCopy *= 0.0;
+						}
+						updatedVelocity = newVelCopy;
+					}
+				}
+				return updatedVelocity;
+			}
+		}
+
+		void main(void) {
+			//texturzugriffe
+			float life = texture2D(tLifeMass, vUv).r;
+			vec3 velOld = texture2D(tVel, vUv).rgb;
+			vec3 posOfParticle = texture2D(tPos, vUv).xyz;
+			float newU = vUv.x + r;//texturkoordinate fuer anderen zufallswert . durch verwendung von r immer ein anderer wert
+			float newV = vUv.y + r;//texturkoordinate fuer anderen zufallswert
+			vec2 newVuV = vec2(newU, newV);//texturkoordinate fuer anderen zufallswert
+			vec4 otherRandom = texture2D(tRandom,newVuV).rgba;//anderen zufallswert auslesen
+			vec4 randomOfThisParticle = texture2D(tRandom,vUv).rgba;//zufallswert von exakt diesem partikel. aendert sich nie
+			
+			//geschwindigkeit berechnen fuer partikel
+			vec3 v = calcVelocity1(life, velOld, posOfParticle, randomOfThisParticle, otherRandom);
+			gl_FragColor = vec4(v, 1);//ergebnis setzen
+		}
+      </script>	
+
+
+    <!--fragmentshader zum aktualisieren der lifetime -->
+    <script  type="x-shader/x-fragment" id="fragment_life">
+		#ifdef GL_ES
+		precision highp float;
+		#endif
+		varying vec2 vUv;
+		uniform sampler2D tLife;
+		uniform sampler2D tRandom;
+		uniform float r;
+		uniform float startLifetime;
+		uniform float deltaT;
+		uniform float drain;
+		uniform float chanceOfBirth;
+		uniform int typePS;
+   
+		vec4 handleLifetime1(vec4 data, float birthChanceOfThisParticle, vec3 randomVec ){
+			float life = data.r;
+			float startLife = data.b;
+			float random_b = randomVec.b;
+			
+			if(life <= 0.0 &&  chanceOfBirth > birthChanceOfThisParticle){		    	
+				life = startLifetime + random_b*startLifetime;
+				startLife = life;
+			}
+			else{
+				float draintT = drain * deltaT;
+				life-=draintT;
+			}
+			
+			return vec4(life,1.0,startLife,1.0);			
+		}
+		
+		void main(void) {
+			vec4 data = texture2D( tLife, vUv).rgba;
+			vec3 randomVec = texture2D(tRandom,vUv).rgb;
+			float newU = vUv.x + r;
+			float newV = vUv.y + r;
+			vec2 newVuV = vec2(newU, newV);
+			vec3 otherRandomVec = texture2D(tRandom,newVuV).rgb;
+			
+			gl_FragColor = handleLifetime1(data, randomVec.r, otherRandomVec);
+		}
+      </script>	
+
+    <!-- ************************************************** Begin To Display-Shaders ********************************-->
+    <!-- VertexShader der auf den Bildschirm rendert-->
+    <script type="x-shader/x-vertex" id="vertexshaderToScreen">
+		#ifdef GL_ES
+		precision highp float;
+		#endif		
+	    attribute vec2 aPoints;// stellen verknuepfung zwischen den partikeln und den texturen dar. an "a-ter Stelle in textur X". 
+		uniform sampler2D tLifeMass;
+		uniform sampler2D texture;
+		uniform int typePS;
+		uniform float pointsize_fixed;
+		uniform float pointsize_randomElement;
+		uniform int isGpuDoingSim;
+		uniform int visualizationType;
+		uniform sampler2D tRandom;
+		varying vec3 randomFromVertex;
+		varying vec3 otherRandomFromVertex;
+		varying float lifeFromVertexShader;
+		varying float startLifeFromVertexShader;
+		
+		bool isDead(float life){
+			//es wird der wert aus der life-textur die nur im shader geandert wird.
+			return life <= 0.0;
+		}
+		  
+		float getPointsizeForParticle(vec3 randomOfExactThisParticle){
+			float avg_random = (randomOfExactThisParticle.r +randomOfExactThisParticle.g +randomOfExactThisParticle.b)/3.0;
+			float newSize = pointsize_fixed + pointsize_randomElement * avg_random;
+			return newSize;
+		}
+		  
+		void main() {
+			vec3 randomOfExactThisParticle = texture2D(tRandom,aPoints).rgb;// zufallswert der genau zu dem verarbeiteten Partikel gehoert
+			randomFromVertex = randomOfExactThisParticle;//zufallswert an fragmentshader per varying uebergeben 
+			vec2 apointOfOther = vec2(aPoints.x + 0.01 + aPoints.y + 0.1);//texturkooridnate fuer
+			vec3 otherRandom = texture2D(tRandom,apointOfOther).rgb;
+			otherRandomFromVertex = otherRandom;
+			vec3 lifeVec = texture2D(tLifeMass,aPoints).rgb;//lebenszeit-vektor auslesen
+			float life = lifeVec.r;//lebenszeit ermitteln
+			lifeFromVertexShader = life;//aktuelle lifetime des partikels an fragmentshader per varying uebergeben
+			startLifeFromVertexShader = lifeVec.b;//start lifetime des partikels an fragmentshader per varying uebergeben
+				
+			vec4 newPos = vec4(0.0,0.0,0.0,0.0);
+			if(isGpuDoingSim == 1){//gpu fuehrt sim berechnungen aus. dh, es sind daten in den pos und life texturen
+				newPos = vec4(texture2D(texture,aPoints).xyz,1.0);	//position-wert aus der rtt-textur
+			}else {// dieser block ist fuer den cpu teil
+				newPos = vec4(position, 1.0);//poistion ist die position des vertex
+			}
+			//transformation ins kamerakoordinatensystem
+			vec4 mvPosition = modelViewMatrix * newPos;
+			newPos = projectionMatrix * mvPosition;				
+			gl_Position = newPos;
+			
+			//punktgroesse bestimmtn
+			float sizeOfPoint = getPointsizeForParticle(randomOfExactThisParticle); 
+			gl_PointSize = sizeOfPoint * (1000.0 / length(mvPosition.xyz));// groesse anpassen. abheangig von der entferneung zur cam . umos naeher umso groesser.
+		}
+
+      </script>     
+    <!-- ************************************************** Begin To Display-Shaders ********************************-->  
+    <!-- FragmentShader der auf den Bildschirm rendert-->
+    <script type="x-shader/x-fragment" id="fragmentshaderToScreen">
+		#ifdef GL_ES
+		precision highp float;
+		#endif		
+    	uniform sampler2D tSmokeAlpha;
+		uniform sampler2D tSmokeColor;
+		uniform sampler2D tLifeMass;
+		uniform sampler2D tRandom;
+		uniform sampler2D tSnow;
+		uniform sampler2D tFire1;
+		uniform sampler2D tFire2;
+		uniform sampler2D tFire3;
+		uniform sampler2D tFire4;
+		uniform sampler2D tball;
+		uniform sampler2D tstar;
+		uniform int visualizationType;
+		uniform int isGpuDoingSim;
+		varying vec3 randomFromVertex;
+		varying vec3 otherRandomFromVertex;
+		varying float lifeFromVertexShader;
+		varying float startLifeFromVertexShader;
+
+		
+		vec4 handleFogPS(vec3 alpha, vec3 color, float life){
+			float a = (alpha.r +alpha.g+alpha.b)/3.0;
+			a*= 0.051;
+			if(a == 0.0){
+				discard;
+			}
+			
+			if(life < 1.0){
+				a*=life;
+			}
+			color.r= 0.1;
+			color.g= 0.1;
+			color.b= 0.1;
+			
+			return vec4(color,a);		
+		}
+		
+		vec4 handleSmokePS(vec3 alpha, vec3 color, float life,float startlife, vec3 randomOfExactThisParticle){
+			float a = (alpha.r +alpha.g+alpha.b)/3.0;
+			if(a == 0.0){
+				discard;//return vec4(0.0,0.0,0.0,0.0);
+			}
+			
+			float lifeRatio = life / startlife;
+			a*= 0.1;
+			if(lifeRatio < 0.5){
+				a*=lifeRatio;
+			}
+			
+			float valueForAllchanels = randomOfExactThisParticle.b*0.1;
+			color.r = valueForAllchanels;
+			color.g = valueForAllchanels;
+			color.b = valueForAllchanels;
+			
+			return vec4(color,a);		
+		}
+		
+		vec4 handleFire(vec3 randomOfExactThisParticle,vec3 otherRandom, vec3 fire1,vec3 fire2,vec3 fire3,vec3 fire4, float life,float startlife){
+			vec3 color =  vec3(1.0, 0.0,0.0);//fehlerfarbe
+			float r_r = randomOfExactThisParticle.b; 
+			if(r_r <  0.15){
+				color = vec3(fire1);
+			}else if(r_r > 0.15 && r_r < 0.3 ){
+				color = vec3(fire2);
+			}else if (r_r > 0.3 && r_r < 0.45){
+				color = vec3(fire3);
+			}else{
+				color = vec3(fire4);
+			}
+			
+			float a = (color.r + color.g + color.b)/3.0;
+			if(a == 0.0){
+				discard;
+			}
+			if(isGpuDoingSim == 1){//gpu is doing sim. life values of particles can be used
+				float lifeRatio = life / startlife;
+				a *= 0.10;
+				if(lifeRatio < 0.4){
+					a *= lifeRatio;
+				}							
+			}
+			
+			float deltaR = 1.0 - color.r;
+			float deltaG = 1.0 - color.g;
+			//float deltaB = 1.0 - color.b;
+			float r_g = otherRandom.g;
+			float r_b = otherRandom.b;
+			color.r += (deltaR *r_g); 
+			color.g *= r_b;			
+			color.b = 0.06;
+			return vec4(color, a);
+		}
+		
+		vec4 handlePointsPS(vec3 randomOfExactThisParticle, vec3 otherR, float life, float startlife){
+			float a = 1.0;
+			if(isGpuDoingSim == 1){
+				a = life/ startlife;	
+			}
+			return vec4(0.9, randomOfExactThisParticle.g*0.5, randomOfExactThisParticle.b*0.5,a);
+		}
+		
+		vec4 handleSnowPS(vec4 color, float life){
+			vec4 c = vec4(color);
+			c.a -= 0.1;
+			if(c.a==0.0){
+				discard;
+			}
+			if(isGpuDoingSim == 1){
+				if(life < 1.0){
+					c.a *= life;
+				}
+			}
+			
+			return c;
+		}
+		
+		vec4 handleBallPS(vec4 color, vec3 randomOfExactThisParticle, float life, float startlife){
+			if(color.a == 0.0){
+				discard;
+			}
+			
+			float a = color.a;
+			if(isGpuDoingSim == 1){
+				if(life <= 1.0){
+					a *= life;
+				}
+			}
+			
+			return vec4(randomOfExactThisParticle,a);
+		}
+		
+		
+		vec4 handleWaterfountain(vec3 randomOfExactThisParticle, float life,float startlife){
+			vec4 c = vec4(randomOfExactThisParticle.r*0.3, randomOfExactThisParticle.g*0.3, 2.0 * randomOfExactThisParticle.b, 0.5);
+			float lifeRatio = life / startlife;
+			c.a = lifeRatio;
+			return c;
+		}
+
+		vec4 handleSparksPs(vec4 sparktex,vec4 balltex, float life,float startlife,vec3 randomOfExactThisParticle){
+			vec4 color = vec4(0.0,0.0,0.0,0.0);
+			
+			if (randomOfExactThisParticle.g < 0.3){
+				color = balltex;
+			}else{
+				color = sparktex;
+			}
+			if (color.a == 0.0){
+				discard;//return color;
+			}
+			
+			if(isGpuDoingSim == 1){
+				float lifeRatio = life / startlife;
+				
+				color.r = 0.74 +  0.26 * lifeRatio;
+				color.g = 0.5 + 0.5 * lifeRatio;
+				color.b = 0.093  + 0.807 * lifeRatio;
+				color.a*= 0.5;
+				color.a*=lifeRatio;
+			}else{
+				// feste farben verwenden, da lifedaten im cpu modus nicht verfuegbar sind
+				color.r = 0.74 +  0.26 * 0.5;
+				color.g = 0.5 + 0.5 * 0.5;
+				color.b = 0.093  + 0.807 * 0.5;
+				color.a*= 0.5;
+			}
+			
+			return color;
+		}
+		
+		vec4 handleWhiteSmokePS(vec3 alpha, vec3 color, float life,float startlife, vec3 randomOfExactThisParticle){
+			float a = (alpha.r +alpha.g+alpha.b)/3.0;
+			if(a == 0.0){
+				discard;
+			}
+			
+			float lifeRatio = life / startlife;
+			a*= 0.03;
+			if(lifeRatio < 0.5){
+				a*=lifeRatio;
+			}
+			
+			float valueForAllchanels =randomOfExactThisParticle.b*0.5;
+			color.r = valueForAllchanels;
+			color.g = valueForAllchanels;
+			color.b = valueForAllchanels;
+			
+			return vec4(color,a);		
+		}
+		
+		
+		void main() {
+			if(lifeFromVertexShader <= 0.0)discard;
+			vec3 fire1 = texture2D(tFire1,gl_PointCoord).rgb;
+			vec3 fire2 = texture2D(tFire2,gl_PointCoord).rgb;
+			vec3 fire3 = texture2D(tFire3,gl_PointCoord).rgb;
+			vec3 fire4 = texture2D(tFire4,gl_PointCoord).rgb;
+			vec4 ballTex = texture2D(tball,gl_PointCoord).rgba;
+			vec3 smokealpha = texture2D(tSmokeAlpha,gl_PointCoord).rgb;
+			vec3 smokecolor = texture2D(tSmokeColor,gl_PointCoord).rgb;
+			vec4 snowColor = texture2D(tSnow,gl_PointCoord).rgba;
+			vec4 star = texture2D(tstar,gl_PointCoord).rgba;
+			
+			vec4 color = vec4(0.0,1.0,0.0,1.0);//fehlerfarbe schwarz
+			if(visualizationType == 1){
+				color = handleSmokePS(smokealpha, smokecolor, lifeFromVertexShader,startLifeFromVertexShader, randomFromVertex);
+			}else if(visualizationType == 2){
+				color = handleSnowPS(snowColor, lifeFromVertexShader);
+			}else if(visualizationType == 3){
+				color = handleFire(randomFromVertex, otherRandomFromVertex,fire1,fire2,fire3,fire4, lifeFromVertexShader, startLifeFromVertexShader );
+			}else if (visualizationType == 4){
+				color = handlePointsPS(randomFromVertex, otherRandomFromVertex, lifeFromVertexShader, startLifeFromVertexShader );
+			}else if(visualizationType == 5){
+				color = handleBallPS(ballTex, otherRandomFromVertex, lifeFromVertexShader, startLifeFromVertexShader );
+			}else if (visualizationType == 6){//water fountain
+				color = handleWaterfountain(randomFromVertex, lifeFromVertexShader, startLifeFromVertexShader );
+			}else if (visualizationType == 7){// sparks
+				color = handleSparksPs(star, ballTex,lifeFromVertexShader, startLifeFromVertexShader,randomFromVertex );
+			}else if(visualizationType == 8){//fog
+				color = handleFogPS(smokealpha, smokecolor, lifeFromVertexShader);
+			}else if(visualizationType == 9){//white smoke
+				color = handleWhiteSmokePS(smokealpha, smokecolor, lifeFromVertexShader,startLifeFromVertexShader, randomFromVertex);
+			}
+			gl_FragColor = color;
+		}
+
+      </script>    
+   <!-- ************************************************** END To Display-Shaders ********************************-->  
+
+	<script type="text/javascript" src="js/thirdPartyJS/jquery.min.js"></script>
+	<script type="text/javascript" src="js/thirdPartyJS/three.js"></script>
+	<script type="text/javascript" src="js/thirdPartyJS/JSONLoader.js"></script>
+	<script type="text/javascript" src="js/thirdPartyJS/stats.min.js"></script>
+	<script type="text/javascript" src="js/thirdPartyJS/AxisHelper.js"></script>
+	<script type="text/javascript" src="js/thirdPartyJS/dat.gui.min.js"></script>
+	<script type="text/javascript" src="js/thirdPartyJS/SpriteMaterial.js"></script>
+	<script type="text/javascript" src="js/thirdPartyJS/ShaderUtils.js"></script>
+	<script type="text/javascript" src="js/thirdPartyJS/Detector.js"></script>
+	<script type="text/javascript" src="js/thirdPartyJS/apprise-1.5.min.js"></script>
+	<script type="text/javascript" src="js/thirdPartyJS/FlyControls.js"></script>
+	<script type="text/javascript" src="js/particleJS/HelperPs.js"></script>
+	<script type="text/javascript" src="js/particleJS/TextureHelperPs.js"></script>
+	<script type="text/javascript" src="js/particleJS/AbstractParticlesystem.js"></script>
+	<script type="text/javascript" src="js/particleJS/AbstractEmitter.js"></script>
+	<script type="text/javascript" src="js/particleJS/ParticlesystemGpu.js"></script>
+	<script type="text/javascript" src="js/particleJS/ParticlesystemCpu.js"></script>
+	<script type="text/javascript" src="js/particleJS/MainSimulation.js"></script>
+	<script type="text/javascript" src="js/particleJS/MyArray.js"></script>
+	<script type="text/javascript" src="js/particleJS/World.js"></script>
+	<script type="text/javascript" src="js/particleJS/EmitterCpu.js"></script>
+	<script type="text/javascript" src="js/particleJS/EmitterGpu.js"></script>
+	<script type="text/javascript" src="js/particleJS/EmitterData.js"></script>
+	<script type="text/javascript" src="js/particleJS/ParticlesystemData.js"></script>
+	<script type="text/javascript" src="js/particleJS/ParticleCpu.js"></script>
+	<script type="text/javascript" src="js/particleJS/VisualizationType.js"></script>
+	<script type="text/javascript" src="js/particleJS/LocalForce.js"></script>
+	<script type="text/javascript" src="js/particleJS/ParticleSystemCreator.js"></script>	
+	<script type="text/javascript" src="js/particleJS/Gui/GuiBuilder.js"></script>		
+	<script type="text/javascript" src="js/particleJS/Gui/TextureController.js"></script>
+	<script type="text/javascript" src="js/particleJS/Gui/ParticlesystemController.js"></script>
+	<script type="text/javascript" src="js/particleJS/Gui/AbstractHandler.js"></script>
+	<script type="text/javascript" src="js/particleJS/Gui/GlobalforceController.js"></script>
+	<script type="text/javascript" src="js/particleJS/Gui/EmitterController.js"></script>
+	<script type="text/javascript" src="js/particleJS/Gui/CameraController.js"></script>
+	<script type="text/javascript" src="js/particleJS/Gui/LocalforceController.js"></script>
+	<script type="text/javascript" src="js/htmlJs/HtmlGuiHandler.js"></script>
+	
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-38069580-1']);
+	  _gaq.push(['_gat._anonymizeIp']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>	
+<script type="text/javascript">
+
+window.onload = function() {
+   //var sim = new MainSimulation("demo1", "");//test ohne das man auf der gui klicken muss
+	new HtmlGuiHandler();
+};
+</script>
+</html>
