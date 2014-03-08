@@ -78,25 +78,10 @@ function MainSimulation(_particleSystemToShow, _mode, _onFinishCallBack){
 	 */
 	this.onMyHelperReady_success = function(){
 		loadedTextures = myHelper.getLoadedTexture(); 
-		init();
-		var plane = new THREE.PlaneGeometry(planeSize,planeSize); 
-		//var quad = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({color: 0X222222, map: loadedTextures.plane, transparent: true}));
-		loadedTextures.plane.repeat.set( 10, 10);
-		var quad = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({color: 0X444444, map: loadedTextures.plane, transparent: true}));
-		//quad.rotation.x = 0 * Math.PI / 180;
-		scene.add(quad);
 
-		that.sky = myHelper.createSkybox(); 
-		scene.add(that.sky);
+        init();
 
-		var counter = 0;
-		quad.rotation.x = -90 * Math.PI / 180;
 
-		world.update();
-		if(world.deltaT > 0.5){
-			  console.log("changed deltat");
-			  world.deltaT = 1/60; 
-		}
 		
 		$('#dvLoading').fadeOut(250, function(){
 			console.log("max Particles: " + psCreator.totalNumberOfMaxParticles);
@@ -136,7 +121,14 @@ function MainSimulation(_particleSystemToShow, _mode, _onFinishCallBack){
 		
 		//hauptscenen-obejekt erstellen
 		scene = new THREE.Scene();
-		
+        var plane = new THREE.PlaneGeometry(planeSize,planeSize);
+        //var quad = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({color: 0X222222, map: loadedTextures.plane, transparent: true}));
+        loadedTextures.plane.repeat.set( 10, 10);
+        var quad = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({color: 0X444444, map: loadedTextures.plane, transparent: true}));
+        //quad.rotation.x = 0 * Math.PI / 180;
+        scene.add(quad);
+
+
 		//kamera erstellen
 		camera = new THREE.PerspectiveCamera(45, ratio, 1, 3000);
 		camera.position.set(camPosXStart,camPosYStart,camPosZStart);
@@ -168,6 +160,18 @@ function MainSimulation(_particleSystemToShow, _mode, _onFinishCallBack){
 
 		//handle resize
 		window.addEventListener('resize', onResizeHandler, false);
+
+        that.sky = myHelper.createSkybox();
+        scene.add(that.sky);
+
+        quad.rotation.x = -90 * Math.PI / 180;
+
+        world.update();
+        if(world.deltaT > 0.5){
+            console.log("changed deltat");
+            world.deltaT = 1/60;
+        }
+
 	}
 
 	/*
